@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'gif_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     http.Response response;
     print("chegou aqui");
 
-    if (_search == null) {
+    if (_search == null || _search == "") {
       response = await http.get(
         Uri.parse(
           "https://api.giphy.com/v1/gifs/trending?api_key=7AuYAhMo1VYJl1MxKLrtS5GM7HcpKS9i&limit=20&offset=0&rating=g&bundle=messaging_non_clips",
@@ -138,8 +139,10 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (context, index) {
         if (_search == null || index < snapshot.data["data"].length) {
           return GestureDetector(
-            child: Image.network(
-              snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image:
+                  snapshot.data["data"][index]["images"]["fixed_height"]["url"],
               height: 300.0,
               fit: BoxFit.cover,
             ),
