@@ -5,6 +5,7 @@ void main() {
   runApp(
     MaterialApp(
       home: HomePage(),
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         inputDecorationTheme: InputDecorationTheme(
           focusedBorder: OutlineInputBorder(
